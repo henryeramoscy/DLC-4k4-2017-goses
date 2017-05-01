@@ -43,15 +43,21 @@ public class Documento implements Serializable{
 
     @Override
     public String toString() {
-        return "Documento{" + "nombre=" + nombre + ", url=" + url + '}';
+        return "Documento{" + "nombre=" + nombre + ", url=" + url + "}\n";
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    @Override
+    public boolean equals(Object o)
+    {
+        boolean e = false;
+
+        if (o != null && o instanceof Documento)
+        {
+           Documento d= (Documento) o;
+           e=(d.getNombre().equals(this.getNombre()));
+        }
+
+        return e;
+    }
+        
 }

@@ -12,26 +12,24 @@ import java.io.Serializable;
  * @author pixelhar
  */
 public class Posteo implements Serializable{
-    private Vocabulario voc;
+    private Termino voc;
     private Documento doc;
     private int tf;
     
     public Posteo() {
-        super();
     }
     
-    public Posteo(Vocabulario voc, Documento doc, int tf) {
-        super();
+    public Posteo(Termino voc, Documento doc) {
         this.voc = voc;
         this.doc = doc;
-        this.tf = tf;
+        this.tf = 1;
     }
 
-    public Vocabulario getVoc() {
+    public Termino getVoc() {
         return voc;
     }
 
-    public void setVoc(Vocabulario voc) {
+    public void setVoc(Termino voc) {
         this.voc = voc;
     }
 
@@ -50,16 +48,15 @@ public class Posteo implements Serializable{
     public void setTf(int tf) {
         this.tf = tf;
     }
+    
+    public void countTf(){
+        tf++;
+    }
 
     @Override
     public String toString() {
-        return "Posteo{" + "voc=" + voc + ", doc=" + doc + ", tf=" + tf + '}';
+        return "Posteo{" + "term=" + voc + ", doc=" + doc + ", tf=" + tf + "}\n";
     }
     
-    
-    
-    
-     
-    
-    
+   
 }

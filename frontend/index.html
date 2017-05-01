@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>buscador</title>
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<div class="container">
+
+<header>
+    <img src="imagen/logo__large.png" alt="Goses" style="width:159px;height:40px;">
+   <form action="/action_page.php">
+       
+  Search Google:
+  <input type="search" name="googlesearch">
+  <input type="submit" value="Go">
+ <input type="file" id="myFile">
+<button onclick="myFunction()">UpLoad</button>
+<form action="UploadServlet" method="post"
+                        enctype="multipart/form-data">
+<input type="file" name="file" size="50" />
+<input type="submit" value="Upload File" />
+</form>
+       <script>
+function myFunction() {
+    var x = document.getElementById("myFile");
+    x.disabled = true;
+}
+</script>
+   
+</form>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="#">Go</a></li>
+    <li><a href="#">File</a></li>
+    <li><a href="#">searches</a></li>
+    <li><a href="#">contact</a></li>
+  </ul>
+</nav>
+
+<article>
+  <table>
+  <tr>
+    <th>Documento</th>
+    <th>Url</th>
+  </tr>
+  <tr>
+    <td>gn06v10.txt</td>
+    <td><a href="#">http://localhost:8080/file\cache\gn06v10.txt</a></td>
+  </tr>
+  <tr>
+    <td>suall10.txt</td>
+    <td><a href="#">http://localhost:8080/file\cache\suall10.txt</a></td>
+  </tr>
+  <tr>
+    <td>jm00v10.txt</td>
+    <td><a href="#">http://localhost:8080/file\cache\jm00v10.txt</a></td>
+  </tr>
+  <tr>
+    <td>pge0112.txt</td>
+    <td><a href="#">http://localhost:8080/file\cache\pge0112.txt</a></td>
+  </tr>
+  <tr>
+    <td>sp85g10.txt</td>
+    <td><a href="#">http://localhost:8080/file\cache\sp85g10.txt</a></td>
+  </tr>
+  <tr>
+    <td>fs40w10.txt</td>
+    <td><a href="#">http://localhost:8080/file\cache\fs40w10.txt</a></td>
+  </tr>
+</table>
+    <div style="width:800px; margin:0 auto;">
+        <div class="pagination" style="width:800px; margin:0 auto;">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+                <a href="#">6</a>
+            <a href="#">&raquo;</a>
+        </div>    
+    </div>
+</article>
+
+<footer>Copyright &copy; goses.com</footer>
+    
+</div>
+
+    <audio controls autoplay>
+  <source src="sound/aero.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>
