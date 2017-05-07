@@ -15,13 +15,13 @@ import utn.frc.dlc.goses.db.DBVocabulario;
  *
  * @author pixelhar
  */
-public class Querry {
+public class Query {
 
-    private String querry;
+    private String query;
     private ArrayList<DBVocabulario> wq;
 
-    public Querry(String querry) {
-        this.querry = querry;
+    public Query(String query) {
+        this.query = query;
         wq=new ArrayList<>();
         parsingQuerry();
         addOrderNr();
@@ -30,7 +30,7 @@ public class Querry {
     
 
     private void parsingQuerry() {
-        String q = querry;
+        String q = query;
         String delims = "[ .,?!--;://@_!¡«»?¿0123456789=°ªï»¿]+";
         String[] tokens = q.split(delims);
         for (String token : tokens) {

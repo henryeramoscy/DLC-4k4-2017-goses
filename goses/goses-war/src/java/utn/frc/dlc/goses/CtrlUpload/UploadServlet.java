@@ -20,18 +20,20 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.output.*;
+import utn.frc.dlc.goses.index.Indexacion;
 
 public class UploadServlet extends HttpServlet {
    
    private boolean isMultipart;
    private String filePath;
-   private int maxFileSize = 50 * 1024;
-   private int maxMemSize = 4 * 1024;
+   private int maxFileSize = 200000 * 1024;
+   private int maxMemSize = 200000 * 1024;
    private File file ;
 
-   public void init( ){
+   @Override
+   public void init(){
       // Get the file location where it would be stored.
-      filePath = "file//";
+      filePath = "file//cache//";
              //getServletContext().getInitParameter("file-upload"); 
    }
    public void doPost(HttpServletRequest request, 
@@ -56,7 +58,7 @@ public class UploadServlet extends HttpServlet {
       // maximum size that will be stored in memory
       factory.setSizeThreshold(maxMemSize);
       // Location to save data that is larger than maxMemSize.
-      factory.setRepository(new File("c:\\temp"));
+      factory.setRepository(new File("file//temp//"));
       
       // Create a new file upload handler
       ServletFileUpload upload = new ServletFileUpload(factory);
@@ -95,7 +97,14 @@ public class UploadServlet extends HttpServlet {
                fileName.substring(fileName.lastIndexOf("\\")+1)) ;
             }
             fi.write( file ) ;
-            out.println("Uploaded Filename: " + fileName +file.getAbsolutePath()+ "<br>");
+            out.println("Uploaded Filename: " + fileName +file.getAbsolutePath()+ filePath+ "<br>");
+            File afile = new File(filePath + fileName);
+            Indexacion index = new Indexacion(filePath + fileName);
+            if (afile.renameTo(new File("file\\share\\" + afile.getName()))) {
+                    out.println(fileName + " is moved successful!"+ "<br>");
+                } else {
+                    out.println(fileName + " is failed to move!"+ "<br>");
+                }
          }
       }
       out.println("</body>");

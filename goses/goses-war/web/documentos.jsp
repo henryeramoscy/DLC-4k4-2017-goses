@@ -39,13 +39,18 @@
 </nav>
 
 <article>
+    <h3>Documentos</h3>
   <table>
   <tr>
-    <th>Documento</th>
+    <th>NroDoc</th>
+    <th>NroRank</th>
+    <th>Nombre</th>
     <th>Url</th>
   </tr>
   <c:forEach items="${documentos}" var="doc">
                                 <tr>
+                                    <td>${doc.numero}</td>
+                                    <td>${doc.rank}</td>
                                     <td>${doc.nombre}</td>
                                     <td><a href="<c:url value="/Download?url=${doc.nombre}"/>">${doc.url}</a></td>
                                 </tr>

@@ -67,11 +67,12 @@ public class DBDocumento implements Serializable{
     }
     
     public void setDateDocumento() {
+        PreparedStatement ps = null;
         try {
 
-            Statement stat = conn.createStatement();
-
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO documentos (nombre,url)\n"
+            //Statement stat = conn.createStatement();
+            
+             ps = conn.prepareStatement("INSERT INTO documentos (nombre,url)\n"
                     + "VALUES ( ?, ?)");
             ps.setString(1, nombre);
             ps.setString(2, url);
@@ -82,13 +83,26 @@ public class DBDocumento implements Serializable{
         } catch (SQLException ex) {
             System.out.println("Error " + ex.getMessage());
         }
+        finally {
+               try {
+                   if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+        }
 
     }
      public int getIDDocumento(){
          int id = 0;
+         Statement stat = null;
         try {
-            Statement stat = conn.createStatement();
-
+            stat = conn.createStatement();
             ResultSet rs = stat.executeQuery("SELECT idDoc\n"
                     + "FROM documentos\n"
                     + "WHERE nombre='"+nombre+"'");
@@ -99,6 +113,18 @@ public class DBDocumento implements Serializable{
 
         } catch (SQLException ex) {
             System.out.println("Error " + ex.getMessage());
+        }finally {
+               try {
+                   if(stat!=null){
+                       stat.close();
+                   }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+
         }
         return id;
     }

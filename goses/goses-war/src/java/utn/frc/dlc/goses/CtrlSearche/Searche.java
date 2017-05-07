@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utn.frc.dlc.goses.Documento;
+import utn.frc.dlc.goses.buscador.DocumentRank;
 import utn.frc.dlc.goses.buscador.Search;
 
 /**
@@ -23,7 +24,7 @@ import utn.frc.dlc.goses.buscador.Search;
  * @author pixelhar
  */
 public class Searche extends HttpServlet {
-    private static ArrayList<Documento> a=new ArrayList() ;
+    private static ArrayList<DocumentRank> a=new ArrayList() ;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

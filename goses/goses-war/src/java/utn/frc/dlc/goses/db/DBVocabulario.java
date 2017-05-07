@@ -6,6 +6,10 @@
 package utn.frc.dlc.goses.db;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -54,6 +58,41 @@ public class DBVocabulario implements Serializable{
     @Override
     public String toString() {
         return "Vocabulario{" + "palabra=" + palabra + ", nr=" + nr + ", maxtf=" + maxtf + '}';
+    }
+    
+    public int getCantTermEnDoc(int idDoc) {
+        Connection conn = ConnectDB.getConneection();
+
+        int c = 0;
+        Statement stat = null;
+        try {
+            stat = conn.createStatement();
+
+            ResultSet rs = stat.executeQuery("select tf\n"
+                    + "from posteo\n"
+                    + "where word='" + this.palabra + "' and idDoc= " + idDoc);
+            while (rs.next()) {
+                c = rs.getInt("tf");
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex.getMessage());
+        } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+        }
+        return c;
+
     }
     
     

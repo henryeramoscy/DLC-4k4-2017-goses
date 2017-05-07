@@ -122,8 +122,9 @@ public class ConnectDB {
         }
     }
 
-    public static void setUpdateVocabulario() {
+    public static void setUpdateVocabulario(LinkedList<Posteo> p) {
         Connection conn = ConnectDB.getConneection();
+        Statement stattf=null;
         PreparedStatement ps1 = null;
         try {
 
@@ -134,30 +135,31 @@ public class ConnectDB {
             String word;
             int nr = 1, maxtf = 1;
             try {
-                Statement stat = conn.createStatement();
-                Statement stattf = conn.createStatement();
-                Statement statmaxtf = conn.createStatement();
-                ResultSet rstf = null, rsmaxtf = null;
+                 //Statement stat = conn.createStatement();
+                 stattf = conn.createStatement();
+//                Statement statmaxtf = conn.createStatement();
+                ResultSet rsc = null;
 
-                ResultSet rs = stat.executeQuery("SELECT word\n"
-                        + "FROM vocabulario");
-                while (rs.next()) {
-                    word = rs.getString("word");
-                    rstf = stattf.executeQuery("SELECT distinct count(idDoc) AS nr\n"
+                //ResultSet rs = stat.executeQuery("SELECT word\n"
+                  //      + "FROM vocabulario");
+                //while (rs.next()) {
+                Iterator it = p.iterator();
+
+            //PreparedStatement ps3;
+            Posteo aux;
+            while (it.hasNext()) {
+                    aux = (Posteo) it.next();
+                    word = aux.getVoc().getPalabra();
+                    rsc = stattf.executeQuery("SELECT count(idDoc) AS nr, MAX(tf) AS maxtf\n"
                             + "FROM posteo\n"
                             + "WHERE word =  '" + word + "';");
-                    while (rstf.next()) {
-                        nr = rstf.getInt("nr");
+                    while (rsc.next()) {
+                        nr = rsc.getInt("nr");
+                        maxtf = rsc.getInt("maxtf");
+                        rsc.close();
                         break;
                     }
                     //stattf.close();
-                    rsmaxtf = statmaxtf.executeQuery("SELECT distinct MAX(tf) AS maxtf\n"
-                            + "FROM posteo\n"
-                            + "WHERE word =  '" + word + "';");
-                    while (rsmaxtf.next()) {
-                        maxtf = rsmaxtf.getInt("maxtf");
-                        break;
-                    }
                     //rsmaxtf.close();    
                     ps1 = conn.prepareStatement("UPDATE vocabulario\n"
                             + "SET nr = ?, maxtf = ?\n"
@@ -166,12 +168,9 @@ public class ConnectDB {
                     ps1.setInt(2, maxtf);
                     ps1.setString(3, word);
                     ps1.executeUpdate();
-
                 }
-                rstf.close();
-                rsmaxtf.close();
-                rs.close();
-
+                
+            stattf.close();
             } catch (SQLException ex) {
                 System.out.println("Error " + ex.getMessage());
             }
@@ -272,50 +271,32 @@ public class ConnectDB {
         return vos;
     }
     
-    public static ArrayList<DBDocumento> getDocumentosOfTerm(String term){
-        ArrayList<DBDocumento> docs=new ArrayList<>();
-            Connection conn = null;
-            PreparedStatement preparedStatement = null;
-            PreparedStatement pS2 = null;
-            ResultSet rsIdoc,rsDoc = null;
-            conn = ConnectDB.getConneection();  
-        try {          
-                 
-            String selectSQL = "SELECT idDoc\n" +
-                               "FROM posteo\n" +
-                               "WHERE word = ?\n"+ 
-                               "ORDER BY tf DESC;";
+    public static ArrayList<DBDocumento> getDocumentosOfTerm(String term) {
+        ArrayList<DBDocumento> docs = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rsDoc = null;
+        conn = ConnectDB.getConneection();
+        try {
+            String selectSQL = "SELECT documentos.idDoc, nombre, url\n"
+                    + "FROM posteo INNER JOIN documentos ON posteo.idDoc=documentos.idDoc\n"
+                    + "WHERE word = ?\n"
+                    + "ORDER BY tf DESC;";
             preparedStatement = conn.prepareStatement(selectSQL);
-            preparedStatement.setString(1, term);
-            
+            preparedStatement.setString(1,term);
+
             // execute select SQL stetement
-            rsIdoc = preparedStatement.executeQuery();
-            
-            while (rsIdoc.next()) {
-               String q = "SELECT *\n" +
-                          "FROM documentos\n" +
-                          "WHERE idDoc = ?;";
-            pS2 = conn.prepareStatement(q);
-            pS2.setInt(1, rsIdoc.getInt("idDoc"));
-            rsDoc = pS2.executeQuery();
-            
+            rsDoc = preparedStatement.executeQuery();
             while (rsDoc.next()) {
-            docs.add(new DBDocumento(rsDoc.getInt("idDoc"),rsDoc.getString("nombre"),rsDoc.getString("url")));
-            rsDoc.close();
-            break;
-            }  
+                docs.add(new DBDocumento(rsDoc.getInt("idDoc"), rsDoc.getString("nombre"), rsDoc.getString("url")));
             }
-            
-            rsIdoc.close(); 
+            rsDoc.close();
         } catch (SQLException ex) {
-            System.err.println("ERROR: " + ex.getMessage()); 
-        }finally {
-               try {
+            System.err.println("ERROR: " + ex.getMessage());
+        } finally {
+            try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
-                }
-                if (pS2 != null) {
-                    pS2.close();
                 }
                 if (conn != null) {
                     conn.close();
@@ -325,9 +306,44 @@ public class ConnectDB {
             }
 
         }
-        return docs;
-        
-        
+        return docs;     
+    }
+    
+    public static int getCantDocumentos() {
+        Connection conn = ConnectDB.getConneection();
+
+        int c = 0;
+        Statement stat=null;
+        try {
+            stat = conn.createStatement();
+
+            ResultSet rs = stat.executeQuery("SELECT count(*) as cant \n"
+                    + "FROM documentos;");
+            while (rs.next()) {
+                c = rs.getInt("cant");
+            }
+            rs.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex.getMessage());
+        }finally {
+               try {
+                   if(stat!=null){
+                       stat.close();
+                   }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+        }
+        return c;
+
+
+    
+    
     }
 
 }

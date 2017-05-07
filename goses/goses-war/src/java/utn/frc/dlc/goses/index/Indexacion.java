@@ -48,7 +48,7 @@ public class Indexacion {
         time_end = System.currentTimeMillis();
         System.out.println("the task has taken3 " + (time_end - time_start) + " milliseconds");
         time_start = System.currentTimeMillis();
-        ConnectDB.setUpdateVocabulario();
+        ConnectDB.setUpdateVocabulario(posteos);
         time_end = System.currentTimeMillis();
         System.out.println("the task has taken4 " + (time_end - time_start) + " milliseconds");
 //        addDB();
