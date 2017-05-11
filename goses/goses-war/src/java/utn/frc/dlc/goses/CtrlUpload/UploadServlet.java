@@ -33,7 +33,7 @@ public class UploadServlet extends HttpServlet {
    @Override
    public void init(){
       // Get the file location where it would be stored.
-      filePath = "file//cache//";
+      filePath = "file/cache/";
              //getServletContext().getInitParameter("file-upload"); 
    }
    public void doPost(HttpServletRequest request, 
@@ -58,7 +58,7 @@ public class UploadServlet extends HttpServlet {
       // maximum size that will be stored in memory
       factory.setSizeThreshold(maxMemSize);
       // Location to save data that is larger than maxMemSize.
-      factory.setRepository(new File("file//temp//"));
+      factory.setRepository(new File("file/temp/"));
       
       // Create a new file upload handler
       ServletFileUpload upload = new ServletFileUpload(factory);
@@ -97,13 +97,13 @@ public class UploadServlet extends HttpServlet {
                fileName.substring(fileName.lastIndexOf("\\")+1)) ;
             }
             fi.write( file ) ;
-            out.println("Uploaded Filename: " + fileName +file.getAbsolutePath()+ filePath+ "<br>");
+            out.println("Uploaded Filename: " + fileName +"<br>");
             File afile = new File(filePath + fileName);
-            Indexacion index = new Indexacion(filePath + fileName);
-            if (afile.renameTo(new File("file\\share\\" + afile.getName()))) {
-                    out.println(fileName + " is moved successful!"+ "<br>");
+            Indexacion index = new Indexacion(file.getAbsolutePath());
+            if (afile.renameTo(new File("file/share/" + afile.getName()))) {
+                    out.println(fileName + " is upload successful!"+ "<br>");
                 } else {
-                    out.println(fileName + " is failed to move!"+ "<br>");
+                    out.println(fileName + " is failed to upload!"+ "<br>");
                 }
          }
       }

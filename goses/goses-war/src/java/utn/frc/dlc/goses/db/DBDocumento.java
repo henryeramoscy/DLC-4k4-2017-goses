@@ -21,7 +21,6 @@ public class DBDocumento implements Serializable{
     private int idDoc;
     private String nombre;
     private String url;
-    private Connection conn=ConnectDB.getConneection();
 
     public int getIdDoc() {
         return idDoc;
@@ -67,7 +66,9 @@ public class DBDocumento implements Serializable{
     }
     
     public void setDateDocumento() {
-        PreparedStatement ps = null;
+       
+        Connection conn=ConnectDB.getConneection();
+         PreparedStatement ps = null;
         try {
 
             //Statement stat = conn.createStatement();
@@ -100,6 +101,7 @@ public class DBDocumento implements Serializable{
     }
      public int getIDDocumento(){
          int id = 0;
+         Connection conn=ConnectDB.getConneection();
          Statement stat = null;
         try {
             stat = conn.createStatement();

@@ -75,7 +75,7 @@ public class Download extends HttpServlet {
             //Alumno alumno = DBAlumno.loadDB(db, id);
             //----------------------------------------
         OutputStream out = response.getOutputStream();
-        FileInputStream in = new FileInputStream("E:\\work space\\DLC-4k4-2017-goses\\DLC-4k4-2017-goses\\goses\\goses-war\\file\\share\\"+id);
+        FileInputStream in = new FileInputStream("/home/pixelhar/glassfish-4.1.2/glassfish4/glassfish/domains/domain1/config/file/share/"+id);
         byte[] buffer = new byte[4096];
         int length;
         while ((length = in.read(buffer)) > 0) {

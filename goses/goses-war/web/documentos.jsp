@@ -1,86 +1,123 @@
 <%-- 
     Document   : documentos
-    Created on : Apr 24, 2017, 3:14:36 PM
+    Created on : May 9, 2017, 3:32:54 PM
     Author     : pixelhar
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RankDocumentos-Busqueda</title>
-        <link rel="stylesheet" href="css/index.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bootstrap 101 Template</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+        <style>
+            .bg-4 {
+                background-color: #2f2f2f;
+                color: #ffffff;
+            }
+
+            html {
+                background: url("imagen/safari.jpg") no-repeat center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+            .block {
+                width: 500px;
+                border: 5px solid #fff;
+                background: rgba(255, 255, 255, 0.7);
+                text-align: center;
+                margin: 100px auto 0;
+            }
+            .pull-right {
+                float: right !important;
+            }
+        </style>
     </head>
+
     <body>
-        <div class="container">
+        <a name="arriba"></a>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Goses
+                    </a>
+                </div>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="http://localhost:8080/goses-war/">Home</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search" action="Searche" method="post">
+                    <div class="input-group">
+                        <input type="text" name="gosesearch" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
 
-<header>
-    <img src="imagen/logo__large.png" alt="Goses" style="width:159px;height:40px;">
-   <form action="Searche" method="post">   
-  Search Goses:
-  <input type="search" name="gosesearch" width="500" height="50">
-  <input type="submit" value="Go">
-   </form>
-<form action="UploadServlet" method="post" enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<input type="submit" value="Upload File" />
-</form>
-</header>
-  
-<nav>
-  <ul>
-    <li><a href="#">Go</a></li>
-    <li><a href="#">File</a></li>
-    <li><a href="#">searches</a></li>
-    <li><a href="#">contact</a></li>
-  </ul>
-</nav>
 
-<article>
-    <h3>Documentos</h3>
-  <table>
-  <tr>
-    <th>NroDoc</th>
-    <th>NroRank</th>
-    <th>Nombre</th>
-    <th>Url</th>
-  </tr>
-  <c:forEach items="${documentos}" var="doc">
-                                <tr>
-                                    <td>${doc.numero}</td>
-                                    <td>${doc.rank}</td>
-                                    <td>${doc.nombre}</td>
-                                    <td><a href="<c:url value="/Download?url=${doc.nombre}"/>">${doc.url}</a></td>
-                                </tr>
-  </c:forEach>
-<!--  <tr>
-    <td>gn06v10.txt</td>
-    <td><a href="#">http://localhost:8080/file\cache\gn06v10.txt</a></td>
-  </tr>
--->
-</table>
-    <div style="width:800px; margin:0 auto;">
-        <div class="pagination" style="width:800px; margin:0 auto;">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-                <a href="#">6</a>
-            <a href="#">&raquo;</a>
-        </div>    
-    </div>
-</article>
+                <form class="navbar-form navbar-left" role="search" action="UploadServlet" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="file" class="form-control-file btn btn-default" id="exampleInputFile" aria-describedby="fileHelp">
+                    </div>
+                    <button type="submit" class="btn btn-default">Upload</button>
+                </form>
 
-<footer>Copyright &copy; goses.com</footer>
-    
-</div>
 
-    <audio controls autoplay>
-  <source src="sound/aero.mp3" type="audio/mpeg">
-</audio>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <h2 class="sub-header">Ranking de Documentos Buscados</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#NroDoc</th>
+                            <th>NroRank</th>
+                            <th>Nombre</th>
+                            <th>Url</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${documentos}" var="doc">
+                            <tr>
+                                <td>${doc.numero}</td>
+                                <td>${doc.rank}</td>
+                                <td>${doc.nombre}</td>
+                                <td><a href="<c:url value="/Download?url=${doc.nombre} "/>">${doc.url}</a></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>   
+          <div class="pull-right"><a href="#arriba" class="btn btn-default" role="button">Arriba</a></div>  
+        </div>
+        <footer class="container-fluid bg-4 text-center">
+            <p>Copyright © goses.com - 2017 - <a href="http://www.pixelhar.com">www.goses.com</a></p>
+        </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
     </body>
+
 </html>

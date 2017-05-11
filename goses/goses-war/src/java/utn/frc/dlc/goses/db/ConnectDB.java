@@ -28,9 +28,9 @@ public class ConnectDB {
 
     private final static String bd = "goses";
     private final static String login = "root";
-    private final static String password = "38308351134hh";
+    private final static String password = "38308351134hh&PH";
     private final static String url = "jdbc:mysql://localhost:3306/" + bd;
-    private final static boolean POOLCONECTION = false;
+    private final static boolean POOLCONECTION = true;
 
     public static Connection getConneection() {
         Connection conn = null;
