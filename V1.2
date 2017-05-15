@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Trabajo Práctico</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+</head>
+
+<body>
+	<br/ >
+    <div class="container-fluid">
+    	
+        <div class="row" style="border: 2px solid grey; margin: 10px 25px 5px 25px; " >
+            <div class="col-sm-3 input-lg">
+                <h3 align="left">FOTO</h3 >
+            </div>
+            <div class="col-sm-7">
+            		<h3>
+	                    <div class="input-group">
+	     					<input type="text" class="form-control input-lg" id="search" placeholder="Search" >
+							    <span class="input-group-btn">
+										<form  method="post" action="action.cgi" enctype="multipart/form-data">
+
+														    <label
+														    	for="fileButton" class="browse btn btn-primary input-lg" type="button" >
+														    	<h3 style= "position: relative; bottom: 20px;"><i class="glyphicon glyphicon-search"> Browse </i> </h3>
+														    </label> 
+													    <input type="file" id="fileButton" style="display:none; "/>
+										</form> 
+							    </span>
+
+	                    </div>
+	                </h3>
+            </div>
+            <div class="col-sm-2" align="center">
+                <div class="btn-group" role="group" aria-label="...">
+                	<h3>					    
+                    <button type="button" class="btn btn-info btn-lg "> Upload </button>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    	<br/ >
+    	<div class="container-fluid" style="border: 1px solid grey; background-color: lightgrey; margin: 0px 40px 0px 40px; ">
+	    	<h4 >
+				<b>
+					File Searches
+				</b>  			
+	    	</h4>
+    	</div>
+    	<div class="container-fluid" style="border-left: 1px solid grey;
+    	                                    border-right: 1px solid grey;
+    	                                    margin: 0px 40px 0px 40px;">
+	    	<h5 >
+					<br/ >
+						Representative Documents
+					<br/ >
+					<br/ >			
+	    	</h5>
+    	</div>
+    	<div class = "panel panel-default" style="margin: 0px 40px 0px 40px; border: 1px solid grey;" >
+   
+		   <table class = "table table-striped" >
+		      <tr>
+		         <th>#</th>
+		         <th>Panel Context</th>
+		         <th>Price </th>
+		         <th>Price </th>
+		      </tr>     
+		      <tr>
+		         <td>Product A</td>
+		         <td>200</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>  
+		      <tr>
+		         <td>Product B</td>
+		         <td>400</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>
+		      <tr>
+		         <td>Product B</td>
+		         <td>400</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>
+		      <tr>
+		         <td>Product B</td>
+		         <td>400</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>
+		      <tr>
+		         <td>Product B</td>
+		         <td>400</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>
+		      <tr>
+		         <td>Product B</td>
+		         <td>400</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>
+		      <tr>
+		         <td>Product B</td>
+		         <td>400</td>
+		         <td>Product A</td>
+		         <td>200</td>
+		      </tr>
+		   </table>
+   
+		</div>
+
+    </div>
+    <div align="center" >
+    	<ul class="pagination">
+		  <li><a href="#">&laquo;</a></li>
+		  <li><a href="#">1</a></li>
+		  <li><a href="#">2</a></li>
+		  <li><a href="#">3</a></li>
+		  <li><a href="#">4</a></li>
+		  <li><a href="#">5</a></li>
+		  <li><a href="#">&raquo;</a></li>
+		</ul>
+    </div>
+</body>
+
+</html>
+
