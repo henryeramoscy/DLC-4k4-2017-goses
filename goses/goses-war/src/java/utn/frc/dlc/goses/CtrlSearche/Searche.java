@@ -91,7 +91,7 @@ public class Searche extends HttpServlet {
         try {
             //----------------------------------------
             if (request.getParameter("gosesearch") != null){ 
-                
+                request.setAttribute("search", request.getParameter("gosesearch"));
                 Search q=new Search(request.getParameter("gosesearch"));
                 a=q.getRank();
 //                doc =new Documento("dada",request.getParameter("gosesearch"));
